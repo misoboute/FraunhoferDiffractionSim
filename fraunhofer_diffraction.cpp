@@ -1,6 +1,10 @@
 #include "fraunhofer_diffraction.h"
 
+#include "../Enhanced-Elastography/EnhancedElastography/PDebug.h"
 #include <cmath>
+#include <iostream>
+#include <sstream>
+#include <thread>
 
 fraunhofer_diffraction::fraunhofer_diffraction(
         int number_of_slits, double max_irradiance, double slit_width, double slit_separation, double wave_number) {
@@ -8,6 +12,7 @@ fraunhofer_diffraction::fraunhofer_diffraction(
     set_slit_width(slit_width);
     set_slit_separation(slit_separation);
     set_wave_number(wave_number);
+    set_number_of_slits(number_of_slits);
 }
 
 std::function<double(double) > fraunhofer_diffraction::get_irradiance_func() {
@@ -29,7 +34,7 @@ double fraunhofer_diffraction::irradiance_func(double theta) {
 double fraunhofer_diffraction::wave_func(double theta) {
     auto alpha = phase_difference(m_slit_separation, theta);
     auto beta = phase_difference(m_slit_width, theta);
-    return m_wave_func_max * std::sin(m_number_of_slits * alpha) / alpha * std::sin(beta) / beta;
+    return m_wave_func_max * std::sin(m_number_of_slits * alpha) / std::sin(alpha) * std::sin(beta) / beta;
 }
 
 double fraunhofer_diffraction::phase_difference(double distance, double theta) {
