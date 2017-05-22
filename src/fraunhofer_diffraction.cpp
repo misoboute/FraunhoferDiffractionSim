@@ -1,10 +1,6 @@
 #include "fraunhofer_diffraction.h"
 
-#include "../Enhanced-Elastography/EnhancedElastography/PDebug.h"
 #include <cmath>
-#include <iostream>
-#include <sstream>
-#include <thread>
 
 fraunhofer_diffraction::fraunhofer_diffraction(
         int number_of_slits, double max_irradiance, double slit_width, double slit_separation, double wave_number) {
